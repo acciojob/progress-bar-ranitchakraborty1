@@ -2,10 +2,10 @@
 const circles = document.querySelectorAll('.circle');
 const prev = document.getElementById('prev');
 const next = document.getElementById('next');
+const progress = document.getElementById('progress');
 
 let currentActive = 1;
 
-// Event listener for the 'Next' button
 next.addEventListener('click', () => {
     currentActive++;
 
@@ -16,7 +16,6 @@ next.addEventListener('click', () => {
     update();
 });
 
-// Event listener for the 'Previous' button
 prev.addEventListener('click', () => {
     currentActive--;
 
@@ -27,9 +26,7 @@ prev.addEventListener('click', () => {
     update();
 });
 
-// Function to update the circles and buttons
 function update() {
-    // Update active class on circles
     circles.forEach((circle, idx) => {
         if (idx < currentActive) {
             circle.classList.add('active');
@@ -38,10 +35,14 @@ function update() {
         }
     });
 
-    // Enable/Disable the previous and next buttons based on the current active circle
+    progress.style.width = ((currentActive - 1) / (circles.length - 1)) * 100 + '%';
+
     if (currentActive === 1) {
         prev.disabled = true;
     } else if (currentActive === circles.length) {
         next.disabled = true;
     } else {
-        prev.disabled = false
+        prev.disabled = false;
+        next.disabled = false;
+    }
+}
